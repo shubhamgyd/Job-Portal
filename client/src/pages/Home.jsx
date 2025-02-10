@@ -1,15 +1,54 @@
-import "./App.css";
-import { Job } from "./components/Job";
-import { SiderbarFilter } from "./components/SidebarFilter";
-function App() {
+import { Navbar } from "../components/Navbar";
+import { CarouselImages } from "../database/carouselImages";
+import { Carousel } from "../components/Carousel";
+import { useState } from "react";
+export function Home() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  let totalImage = CarouselImages.length;
+  const handleLeftBtnClick = () => {
+    if (currentSlide+1 === totalImage) {
+      setCurrentSlide(0);
+    } else {
+      setCurrentSlide(currentSlide+1)
+    }
+  }
+  const handleRightBtnClick = () => {
+    if (currentSlide === 0) {
+      setCurrentSlide(totalImage-1);
+    } else {
+      setCurrentSlide(currentSlide-1)
+    }
+  }
+
+
   return (
     <>
-    <SiderbarFilter />
+      <Navbar />
+      <div className="w-screen h-[80vh] flex justify-center items-center text-[8rem]">
+        <div>
+          <div>JOB PORTAL</div>
+          <div className="text-[2rem] flex justify-center">
+            <div className="bg-red-400 !p-2 rounded-lg hover:bg-red-500 cursor-pointer">BROWSE JOBS</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h1 className="text-[2rem]">Featured JOBS</h1>
+        <div className="carousel-container relative w-screen h-[20vh]">
+          {
+            CarouselImages.map(({src}, idx) => (
+              <Carousel key={idx} idx={idx} imageURL={src} currentSlide={currentSlide}/>
+            ))
+          }
+
+          <button className="btn left-btn cursor-pointer" onClick={handleLeftBtnClick}>&lt;</button>
+          <button className="btn right-btn cursor-pointer" onClick={handleRightBtnClick}>&gt;</button>
+        </div>
+      </div>
     </>
   );
 }
 
-export default App;
 
 // import { useState } from "react";
 // import "./App.css";

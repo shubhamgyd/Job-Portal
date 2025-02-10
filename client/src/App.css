@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+* {
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: visible;
+}
+
+.btn {
+  position: absolute;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1;
+  font-size: 1.5rem;
+  background-color: rgb(128, 128, 181);
+  font-weight: 800;
+  color: #fafafa;
+}
+
+.btn:active {
+  transform: scale(1.1);
+}
+
+.left-btn {
+  top: 45%;
+  left: 1rem;
+}
+
+.right-btn {
+  top: 45%;
+  right: 1rem;
+}
