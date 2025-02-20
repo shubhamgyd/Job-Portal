@@ -2,16 +2,14 @@ import { DateOfPostingFilter } from "./DateOfPostingFilter"
 import { LocationFilter } from "./LocationFilter"
 import { SalaryFilter } from "./SalaryFilter"
 import { TypeOfExploymentFilter } from "./TypeOfExploymentFilter"
-import { WorkExperienceFilter } from "./WorkExperienceFilter"
 
-export const SiderbarFilter = () => {
+export const SiderbarFilter = ({handleFilterChange, handleFilterClick}) => {
   return (
     <>
-      <LocationFilter />
-      <SalaryFilter />
-      <DateOfPostingFilter />
-      <WorkExperienceFilter />
-      <TypeOfExploymentFilter />
+      <LocationFilter handleFilterChange={handleFilterChange}/>
+      <SalaryFilter handleFilterChange={handleFilterChange} handleFilterClick={handleFilterClick}/>
+      <DateOfPostingFilter handleFilterChange={handleFilterChange}/>
+      <TypeOfExploymentFilter handleFilterChange={handleFilterChange}/>
     </>
   )
 }

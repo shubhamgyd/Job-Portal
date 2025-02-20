@@ -1,7 +1,7 @@
 const express = require("express");
 const Job = require("../models/Job");
 const router = express.Router();
-
+const mongoose = require("mongoose");
 // // Create Job
 // router.post("/", async (req, res) => {
 //   try {
@@ -16,7 +16,7 @@ const router = express.Router();
 // Create Job
 router.post("/", async (req, res) => {
   try {
-    const { title, company, location, salary, description, requirements, postedBy } = req.body;
+    const { title, salary, workExperience, typeOfEmployment, description, jobImage, location, postedBy} = req.body;
 
     // Convert postedBy (string) to ObjectId
     if (!mongoose.Types.ObjectId.isValid(postedBy)) {
@@ -25,11 +25,12 @@ router.post("/", async (req, res) => {
 
     const newJob = new Job({
       title,
-      company,
-      location,
       salary,
+      workExperience,
+      typeOfEmployment,
       description,
-      requirements,
+      jobImage,
+      location,
       postedBy: new mongoose.Types.ObjectId(postedBy)  // Convert string to ObjectId
     });
 
@@ -40,6 +41,42 @@ router.post("/", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+// Create Jobs
+router.post("/bulk", async (req, res) => {
+  try{
+    const jobs = req.body;
+
+    const validJobs = jobs.map((job) => ({
+      ...job, postedBy: new mongoose.Types.ObjectId(job.postedBy)
+    }))
+
+    await Job.insertMany(validJobs)
+    res.status(201).json({message: "Jobs inserted successfully"})
+  }catch(error) {
+    res.status(500).json({error: error.message});
+  }
+})
+
+// router.post("/bulk", async (req, res) => {
+//   try {
+//     const jobs = req.body; // Expecting an array of job objects
+
+//     // Validate each job's `postedBy` as ObjectId
+//     const validJobs = jobs.map(job => ({
+//       ...job,
+//       postedBy: new mongoose.Types.ObjectId(job.postedBy)
+//     }));
+
+//     // Insert jobs into database
+//     const insertedJobs = await Job.insertMany(validJobs);
+    
+//     res.status(201).json({ message: "Jobs posted successfully!", insertedJobs });
+
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// });
 
 // Get All Jobs
 router.get("/", async (req, res) => {

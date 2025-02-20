@@ -1,10 +1,9 @@
 import "./App.css";
-import { Job } from "./components/Job";
-import { SiderbarFilter } from "./components/SidebarFilter";
+import { Jobs } from "./pages/Jobs";
 function App() {
   return (
     <>
-    <SiderbarFilter />
+    <Jobs/>
     </>
   );
 }
