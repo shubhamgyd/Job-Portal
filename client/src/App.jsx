@@ -1,9 +1,9 @@
 import "./App.css";
-import { Jobs } from "./pages/Jobs";
+import { AllRoutes } from "./router/AllRoutes";
 function App() {
   return (
     <>
-    <Jobs/>
+    <AllRoutes />
     </>
   );
 }

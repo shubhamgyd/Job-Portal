@@ -1,12 +1,12 @@
 import { useRef } from "react";
 
-export const SearchInput = ({ handleFilterClick }) => {
+export const SearchInput = ({ handleSearchInputChange }) => {
   const inputRef = useRef();
 
   return (
     <>
       <input placeholder="Enter the job title" ref={inputRef} />
-      <button onClick={() => handleFilterClick(inputRef.current.value)}>Search</button>
+      <button onClick={() => handleSearchInputChange(inputRef.current.value)}>Search</button>
     </>
   );
 };

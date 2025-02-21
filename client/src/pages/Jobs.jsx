@@ -26,8 +26,8 @@ export const Jobs = () => {
   }, []);
 
   // Search Input
-  const onSearchInputChange = (event) => {
-    setQuery(event.target.value);
+  const handleSearchInputChange = (value) => {
+    setQuery(value);
   };
 
   useEffect(() => {
@@ -53,10 +53,6 @@ export const Jobs = () => {
     } else if (name === "typeOfEmployment") {
       setTypeOfEmployment(value);
     }
-  };
-
-  const handleFilterClick = (value) => {
-    setQuery(value);
   };
 
   useEffect(() => {
@@ -105,7 +101,7 @@ export const Jobs = () => {
         <Navbar />
       </div>
       <div className="job-search">
-        <SearchInput handleFilterClick={handleFilterClick}/>
+        <SearchInput handleSearchInputChange={handleSearchInputChange}/>
       </div>
       <div className="sidebar-container">
         <SiderbarFilter
