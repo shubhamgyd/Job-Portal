@@ -5,15 +5,34 @@ const jwt = require("jsonwebtoken");
 // register user
 exports.registerUser = async (req, res) => {
   try {
-    const { name, email, password, role, companyDetails } = req.body;
+    const {
+      name,
+      email,
+      username,
+      password,
+      role,
+      companyName,
+      location,
+      website,
+      industry,
+      code,
+    } = req.body;
+    console.log(name, email);
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    const resume = req.file ? req.file.path: null;
     const newUser = new User({
       name,
       email,
+      username,
       password: hashedPassword,
       role,
-      companyDetails,
+      companyName,
+      location,
+      website,
+      industry,
+      code,
+      resume,
     });
 
     await newUser.save();
@@ -26,9 +45,10 @@ exports.registerUser = async (req, res) => {
 // Login User
 exports.loginUser = async (req, res) => {
   try {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email });
-
+    const { username, password } = req.body;
+    console.log(username, password)
+    const user = await User.findOne({ username });
+    console.log(user);
     if (!user || !(await bcrypt.compare(password, user.password))) {
       return res.status(401).json({ error: "Invalid credentials" });
     }

@@ -4,6 +4,7 @@ import { Navbar } from "../components/Navbar";
 import { SiderbarFilter } from "../components/SidebarFilter";
 import { getAllJobs } from "../api/getAllJobs";
 import { SearchInput } from "../components/SearchInput";
+import { Link } from "react-router-dom";
 export const Jobs = () => {
   let [jobs, setJobs] = useState([]);
   let [filteredJobs, setFilteredJobs] = useState([]);
@@ -30,18 +31,6 @@ export const Jobs = () => {
     setQuery(value);
   };
 
-  useEffect(() => {
-    if (query) {
-      setFilteredJobs(
-        jobs.filter((job) =>
-          job.title.toLowerCase().includes(query.toLowerCase())
-        )
-      );
-    } else {
-      setFilteredJobs(jobs);
-    }
-  }, [query, jobs]);
-
   const handleFilterChange = (event) => {
     const { name, value } = event.target;
     if (name === "location") {
@@ -57,6 +46,12 @@ export const Jobs = () => {
 
   useEffect(() => {
     let updatedJobs = [...jobs];
+
+    if (query) {
+      updatedJobs = updatedJobs.filter(
+        (job) => job.title.toLowerCase().includes(query.toLowerCase())
+      )
+    }
 
     if (location) {
       updatedJobs = updatedJobs.filter(
@@ -101,36 +96,38 @@ export const Jobs = () => {
         <Navbar />
       </div>
       <div className="job-search">
-        <SearchInput handleSearchInputChange={handleSearchInputChange}/>
+        <SearchInput handleSearchInputChange={handleSearchInputChange} />
       </div>
       <div className="sidebar-container">
-        <SiderbarFilter
-          handleFilterChange={handleFilterChange}
-          handleFilterClick={handleFilterClick}
-        />
+        <SiderbarFilter handleFilterChange={handleFilterChange} />
       </div>
       <div className="job-listings">
-        {filteredJobs.map(
-          ({
-            title,
-            salary,
-            typeOfEmployment,
-            description,
-            jobImage,
-            location,
-            createdAt,
-          }) => (
-            <JobCard
-              title={title}
-              typeOfEmployment={typeOfEmployment}
-              location={location}
-              description={description}
-              salary={salary}
-              jobImage={jobImage}
-              createdAt={createdAt}
-            />
-          )
-        )}
+        <div className="flex flex-col gap-8">
+          {filteredJobs.map(
+            ({
+              _id,
+              title,
+              salary,
+              typeOfEmployment,
+              description,
+              jobImage,
+              location,
+              createdAt,
+            }) => (
+              <JobCard
+                key={_id}
+                id={_id}
+                title={title}
+                typeOfEmployment={typeOfEmployment}
+                location={location}
+                description={description}
+                salary={salary}
+                jobImage={jobImage}
+                createdAt={createdAt}
+              />
+            )
+          )}
+        </div>
       </div>
     </div>
   );

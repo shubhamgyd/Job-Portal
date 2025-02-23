@@ -7,7 +7,7 @@ export const SiderbarFilter = ({handleFilterChange, handleFilterClick}) => {
   return (
     <>
       <LocationFilter handleFilterChange={handleFilterChange}/>
-      <SalaryFilter handleFilterChange={handleFilterChange} handleFilterClick={handleFilterClick}/>
+      <SalaryFilter handleFilterChange={handleFilterChange}/>
       <DateOfPostingFilter handleFilterChange={handleFilterChange}/>
       <TypeOfExploymentFilter handleFilterChange={handleFilterChange}/>
     </>

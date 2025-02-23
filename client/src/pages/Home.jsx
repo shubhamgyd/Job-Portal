@@ -2,6 +2,7 @@ import { Navbar } from "../components/Navbar";
 import { CarouselImages } from "../database/carouselImages";
 import { Carousel } from "../components/Carousel";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 export function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
   let totalImage = CarouselImages.length;
@@ -28,7 +29,7 @@ export function Home() {
         <div>
           <div>JOB PORTAL</div>
           <div className="text-[2rem] flex justify-center">
-            <div className="bg-red-400 !p-2 rounded-lg hover:bg-red-500 cursor-pointer">BROWSE JOBS</div>
+            <div className="bg-red-400 !p-2 rounded-lg hover:bg-red-500 cursor-pointer"><Link to="/jobs">BROWSE JOB</Link></div>
           </div>
         </div>
       </div>
