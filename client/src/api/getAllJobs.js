@@ -11,3 +11,14 @@ export const getAllJobs = async (jobs) => {
     console.error(error.message);
   }
 };
+
+export const getJob = async (jobId) => {
+  try {
+    let url = BaseURL + "jobs/" + jobId;
+    const { data } = await axios.get(url);
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error(error.message);
+  }
+};

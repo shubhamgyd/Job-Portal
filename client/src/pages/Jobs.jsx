@@ -48,9 +48,9 @@ export const Jobs = () => {
     let updatedJobs = [...jobs];
 
     if (query) {
-      updatedJobs = updatedJobs.filter(
-        (job) => job.title.toLowerCase().includes(query.toLowerCase())
-      )
+      updatedJobs = updatedJobs.filter((job) =>
+        job.title.toLowerCase().includes(query.toLowerCase())
+      );
     }
 
     if (location) {
@@ -88,7 +88,7 @@ export const Jobs = () => {
     }
 
     setFilteredJobs(updatedJobs);
-  }, [location, salary, jobs, dateOfPosting, typeOfEmployment]);
+  }, [location, salary, jobs, dateOfPosting, typeOfEmployment, query]);
 
   return (
     <div className="jobs-container">
@@ -114,17 +114,24 @@ export const Jobs = () => {
               location,
               createdAt,
             }) => (
-              <JobCard
-                key={_id}
-                id={_id}
-                title={title}
-                typeOfEmployment={typeOfEmployment}
-                location={location}
-                description={description}
-                salary={salary}
-                jobImage={jobImage}
-                createdAt={createdAt}
-              />
+              <div className="flex gap-4">
+                <JobCard
+                  key={_id}
+                  id={_id}
+                  title={title}
+                  typeOfEmployment={typeOfEmployment}
+                  location={location}
+                  description={description}
+                  salary={salary}
+                  jobImage={jobImage}
+                  createdAt={createdAt}
+                />
+                <div className="flex items-center">
+                  <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-lg shadow-md transition-all">
+                    <Link to={`/jobs/${_id}`}>Job Details</Link>
+                  </button>
+                </div>
+              </div>
             )
           )}
         </div>

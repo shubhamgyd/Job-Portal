@@ -6,6 +6,7 @@ import { Login } from "../pages/Login";
 import { SignUp } from "../pages/SignUp";
 import { Jobs } from "../pages/Jobs";
 import { PrivateComponent } from "../privateRoute/privateComponent";
+import { JobDetails } from "../pages/JobDetails";
 
 export const AllRoutes = () => {
   return (
@@ -23,6 +24,7 @@ export const AllRoutes = () => {
       <Route path="/contact" element={<Contact />}></Route>
       <Route path="/login" element={<Login />}></Route>
       <Route path="/signup" element={<SignUp />}></Route>
+      <Route path="/jobs/:id" element={<JobDetails />}></Route>
     </Routes>
   );
 };
