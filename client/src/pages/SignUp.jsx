@@ -1,76 +1,3 @@
-// import { useState } from "react";
-// import { Navbar } from "../components/Navbar";
-
-// export const SignUp = () => {
-
-//   const [role, setRole] = useState(false);
-//   const handleRole = (e) => {
-//     console.log(e);
-//     console.log(e.target.value)
-//     console.log(e.target.active);
-//       if (e.target.value=="job_seeker"){
-//         setRole(false)
-//       } else {
-//         setRole(true)
-//       }
-//   }
-//   return (
-//     <>
-//       <Navbar />
-//       <div>
-//         <form>
-//           <h2>SignUp</h2>
-//           <div>
-//             <label>Name:</label>
-//             <input name="name" type="text" placeholder="Enter your name..."></input>
-//           </div>
-//           <div>
-//             <label>Email:</label>
-//             <input name="email" type="email" placeholder="Enter your email..."></input>
-//           </div>
-//           <div>
-//             <label>Username:</label>
-//             <input name="username" type="text" placeholder="Enter the username..."></input>
-//           </div>
-//           <div>
-//             <label>Password:</label>
-//             <input name="password" type="password" placeholder="Enter the password..."></input>
-//           </div>
-//           <div>
-//             <label>Role:</label>
-//             <input name="role" type="radio" onChange={handleRole} value="job_seeker"></input>
-//             <input name="role" type="radio" onChange={handleRole} value="employer"></input>
-//           </div>
-//           {
-//             role ? <div>
-//               <div>
-//                 <label>Company Name:</label>
-//                 <input name="companyName" type="text" placeholder="Enter the company name..."></input>
-//               </div>
-//               <div>
-//                 <label>Location:</label>
-//                 <input name="location" type="text" placeholder="Enter the location..."></input>
-//               </div>
-//               <div>
-//                 <label>Website</label>
-//                 <input name="website" type="text" placeholder="Enter the company web url"></input>
-//               </div>
-//               <div>
-//                 <label>Industry</label>
-//                 <input name="industry" type="text" placeholder="Enter the type of industry"></input>
-//               </div>
-//               <div>
-//                 <label>Code</label>
-//                 <input name="code" type="text" placeholder="Enter the code"></input>
-//               </div>
-//             </div> : <div><label>Resume:</label> <input name="resume" type="file"></input></div>
-//           }
-//         </form>
-//       </div>
-//     </>
-//   );
-// };
-
 import { useState } from "react";
 import { Navbar } from "../components/Navbar";
 
@@ -103,26 +30,40 @@ export const SignUp = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    const formDataToSend = new FormData();
+    const formDataToSend = {};
+    let cnt = 0;
     Object.keys(formData).forEach((key) => {
       if (formData[key]) {
-        formDataToSend.append(key, formData[key]);
+        cnt += 1;
+        formDataToSend[key] = formData[key];
       }
     });
-    try {
-      const response = await fetch("http://localhost:5000/api/users/register", {
-        method: "POST",
-        body: formDataToSend,
-      });
+    console.log(formData.role, cnt);
+    if (
+      (formData.role === "job_seeker" && cnt === 6) ||
+      (formData.role === "employer" && cnt === 10)
+    ) {
+      try {
+        const response = await fetch(
+          "http://localhost:5000/api/users/register",
+          {
+            method: "POST",
+            body: JSON.stringify(formDataToSend),
+            headers: { "Content-Type": "application/json" },
+          }
+        );
 
-      const result = await response.json();
-      if (response.ok) {
-        alert("Signup successful!");
-      } else {
-        alert(result.message);
+        const result = await response.json();
+        if (response.ok) {
+          alert("Signup successful!");
+        } else {
+          alert(result.message);
+        }
+      } catch (error) {
+        console.error("Error:", error.message);
       }
-    } catch (error) {
-      console.error("Error:", error.message);
+    } else {
+      alert("fill all the details");
     }
   };
 

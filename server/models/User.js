@@ -13,7 +13,7 @@ const UserSchema = new mongoose.Schema({
   industry: String,
   code: String,
   postedJobs: [{type: mongoose.Schema.Types.ObjectId, ref: "Job"}]
-  
+
 })
 
 module.exports = mongoose.model("User", UserSchema);

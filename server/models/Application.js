@@ -11,4 +11,12 @@ const ApplicationSchema = new mongoose.Schema({
   appliedAt: { type: Date, default: Date.now },
 });
 
+// Defining Virtual Field to rename "jobId" to "jobDetails"
+ApplicationSchema.virtual("jobDetails", {
+  ref: "job",
+  localField: "jobId",
+  foreignField: "_id",
+  justOne: true
+})
+
 module.exports = mongoose.model("Application", ApplicationSchema);

@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 
 // register user
 exports.registerUser = async (req, res) => {
+  console.log(req.body);
   try {
     const {
       name,
@@ -20,7 +21,7 @@ exports.registerUser = async (req, res) => {
     console.log(name, email);
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const resume = req.file ? req.file.path: null;
+    const resume = req.file ? req.file.path : null;
     const newUser = new User({
       name,
       email,
@@ -46,7 +47,7 @@ exports.registerUser = async (req, res) => {
 exports.loginUser = async (req, res) => {
   try {
     const { username, password } = req.body;
-    console.log(username, password)
+    console.log(username, password);
     const user = await User.findOne({ username });
     console.log(user);
     if (!user || !(await bcrypt.compare(password, user.password))) {
@@ -56,7 +57,8 @@ exports.loginUser = async (req, res) => {
     const token = jwt.sign({ userId: user._id, role: user.role }, "secret", {
       expiresIn: "1h",
     });
-    res.json({ token });
+    console.log(String(user._id));
+    res.json({ token, id: String(user._id), role: String(user.role) });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
