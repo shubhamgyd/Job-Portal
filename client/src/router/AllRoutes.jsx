@@ -4,7 +4,7 @@ import { Applications } from "../pages/Applications";
 import { Login } from "../pages/Login";
 import { SignUp } from "../pages/SignUp";
 import { Jobs } from "../pages/Jobs";
-import { PrivateComponent } from "../privateRoute/privateComponent";
+import { PrivateComponent } from "../privateroute/privateComponent";
 import { JobDetails } from "../pages/JobDetails";
 import { PostedJobs } from "../pages/PostedJobs";
 import { PostJob } from "../pages/PostJob";
