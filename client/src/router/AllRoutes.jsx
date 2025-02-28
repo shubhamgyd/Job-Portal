@@ -1,26 +1,22 @@
 import { Routes, Route } from "react-router-dom";
 import { Home } from "../pages/Home";
-import { About } from "../pages/About";
 import { Applications } from "../pages/Applications";
 import { Login } from "../pages/Login";
 import { SignUp } from "../pages/SignUp";
 import { Jobs } from "../pages/Jobs";
 import { PrivateComponent } from "../privateRoute/privateComponent";
 import { JobDetails } from "../pages/JobDetails";
-import { UserApplications } from "../pages/UserApplications";
+import { PostedJobs } from "../pages/PostedJobs";
 import { PostJob } from "../pages/PostJob";
 import { useAuth } from "../context/loginContext";
-import { useEffect } from "react";
+import { UserApplicationsForThisJob } from "../pages/UserApplicationsForThisJob";
 
 export const AllRoutes = () => {
-  useEffect(() => {
     const { role } = useAuth();
-  }, [])
   return role == "job_seeker" ? (
     <Routes>
       <Route path="/" element={<Home />}></Route>
       <Route path="/jobs" element={<Jobs />}></Route>
-      <Route path="/about" element={<About />}></Route>
       <Route
         path="/applications"
         element={
@@ -42,7 +38,8 @@ export const AllRoutes = () => {
     </Routes>
   ) : (
     <Routes>
-      <Route path="/" element={<UserApplications />}></Route>
+      <Route path="/" element={<PostedJobs />}></Route>
+      <Route path="/userApplications/:id" element={<UserApplicationsForThisJob />}></Route>
       <Route path="/postJob" element={<PostJob />}></Route>
       <Route path="/login" element={<Login />}></Route>
       <Route path="/signup" element={<SignUp />}></Route>

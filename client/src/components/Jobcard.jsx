@@ -27,7 +27,7 @@ const JobCard = ({
     setDate(() => temp);
   }, [createdAt]);
   return (
-    <div className="max-w-lg border p-6 rounded-2xl shadow-lg flex bg-white">
+    <div className="w-lg border p-4 rounded-2xl shadow-lg flex bg-white gap-2">
       <div className="flex-shrink-0 h-full">
         <img src={jobImage} alt="Code Developer Logo" className="w-20 h-16" />
       </div>

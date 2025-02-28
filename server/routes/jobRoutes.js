@@ -18,7 +18,6 @@ router.post("/", async (req, res) => {
     console.log(title);
     console.log(req.body);
 
-    // Convert postedBy (string) to ObjectId
     if (!mongoose.Types.ObjectId.isValid(postedBy)) {
       return res.status(400).json({ error: "Invalid employer ID" });
     }
@@ -32,7 +31,7 @@ router.post("/", async (req, res) => {
       description,
       jobImage,
       location,
-      postedBy: new mongoose.Types.ObjectId(postedBy), // Convert string to ObjectId
+      postedBy: new mongoose.Types.ObjectId(postedBy),
     });
 
     await newJob.save();
@@ -43,7 +42,6 @@ router.post("/", async (req, res) => {
   }
 });
 
-// Create Jobs
 router.post("/bulk", async (req, res) => {
   try {
     const jobs = req.body;
@@ -60,18 +58,15 @@ router.post("/bulk", async (req, res) => {
   }
 });
 
-// get all jobs
 router.get("/", async (req, res) => {
   try {
     const jobs = await Job.find().populate("postedBy", "company");
-    // const jobs = await Job.find()
     res.json(jobs);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-// get job by its id
 router.get("/:id", async (req, res) => {
   try {
     console.log(req.params.id);

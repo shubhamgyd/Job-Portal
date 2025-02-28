@@ -83,7 +83,7 @@ export const Jobs = () => {
     }
     if (typeOfEmployment) {
       updatedJobs = updatedJobs.filter(
-        (job) => job.typeOfEmployment === typeOfEmployment
+        (job) => job.typeOfEmployment.toLowerCase() === typeOfEmployment.toLowerCase()
       );
     }
 

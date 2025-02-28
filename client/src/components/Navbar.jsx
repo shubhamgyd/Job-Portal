@@ -27,9 +27,6 @@ export const Navbar = () => {
         
           <li><Link to="/applications">APPLICATIONS</Link></li>
         
-        
-          <li><Link to="/about">ABOUT</Link></li>
-        
       </ol> :
       <ol className="flex justify-between gap-12">
         <li><Link to="/postJob">POST JOB</Link></li>
@@ -38,8 +35,8 @@ export const Navbar = () => {
       }
       <div className="flex justify-between gap-2">
         {isLoggedIn ? <button onClick={handleLogout}>LOGOUT</button>:
-        <button><Link to="/login">LOGIN</Link></button>}
-        <button><Link to="/signup">SIGNUP</Link></button>
+        <><button><Link to="/login">LOGIN</Link></button>
+        <button><Link to="/signup">SIGNUP</Link></button></>}
       </div>
     </div>
   );
